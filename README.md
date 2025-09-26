@@ -1,4 +1,4 @@
-# Laravel + Vue Starter Kit
+# Laravel + Vue Starter Kit without Wayfinder & Two Factor
 
 ## Introduction
 
