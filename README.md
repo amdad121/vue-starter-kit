@@ -8,9 +8,15 @@ Inertia allows you to build modern, single-page Vue applications using classic s
 
 This Vue starter kit utilizes Vue 3 and the Composition API, TypeScript, Tailwind, and the [shadcn-vue](https://www.shadcn-vue.com) component library.
 
-## Official Documentation
+## Installation
 
-Documentation for all Laravel starter kits can be found on the [Laravel website](https://laravel.com/docs/starter-kits).
+To use this kit, you can install it using:
+
+```bash
+laravel new --using=amdadulhaq/vue-starter-kit
+```
+
+From there, you can modify the kit to your needs.
 
 ## Contributing
 
