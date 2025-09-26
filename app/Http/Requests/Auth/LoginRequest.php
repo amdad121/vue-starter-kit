@@ -33,18 +33,15 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     * Validate the request's credentials and return the user without logging them in.
+     * Attempt to authenticate the request's credentials.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function validateCredentials(): User
+    public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
-        /** @var User|null $user */
-        $user = Auth::getProvider()->retrieveByCredentials($this->only('email', 'password'));
-
-        if (! $user || ! Auth::getProvider()->validateCredentials($user, $this->only('password'))) {
+        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -53,8 +50,6 @@ class LoginRequest extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
-
-        return $user;
     }
 
     /**

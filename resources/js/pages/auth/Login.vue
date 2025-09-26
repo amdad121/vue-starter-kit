@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import AuthenticatedSessionController from '@/actions/App/Http/Controllers/Auth/AuthenticatedSessionController';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -7,8 +6,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
-import { register } from '@/routes';
-import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 
@@ -33,7 +30,8 @@ defineProps<{
         </div>
 
         <Form
-            v-bind="AuthenticatedSessionController.store.form()"
+            method="post"
+            :action="route('login')"
             :reset-on-success="['password']"
             v-slot="{ errors, processing }"
             class="flex flex-col gap-6"
@@ -59,7 +57,7 @@ defineProps<{
                         <Label for="password">Password</Label>
                         <TextLink
                             v-if="canResetPassword"
-                            :href="request()"
+                            :href="route('password.request')"
                             class="text-sm"
                             :tabindex="5"
                         >
@@ -102,7 +100,7 @@ defineProps<{
 
             <div class="text-center text-sm text-muted-foreground">
                 Don't have an account?
-                <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
+                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
             </div>
         </Form>
     </AuthBase>
